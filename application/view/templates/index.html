@@ -2,13 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>BOSSABOX</title>
 </head>
 <body>
     <h1>VUTTR</h1>
     {% for i in ferramenta_list %}
     <p> Nome: {{i.titulo}} </p>
     <p> LINK: {{i.link}}</p>
+    <p> Descrição: {{i.descricao}}</p>
+    <p> Tags: {{i.tags}}</p>
 
     {% endfor %}
 </body>
