@@ -1,0 +1,17 @@
+div#ferramentas{
+
+    border-style: solid;
+}
+
+div#cabeçalho_form{
+    display: inline-block;
+
+}
+div#button{
+   display: inline-block;
+}
+
+div#tag{
+    display: inline-block
+}
+
