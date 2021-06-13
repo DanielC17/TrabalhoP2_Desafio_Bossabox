@@ -12,13 +12,40 @@ ferramenta_list = ferramentaDAO.lista_ferramentas()
 def home():
     return render_template("index.html", ferramenta_list = ferramenta_list)
 
+
 @app.route("/inserir", methods=['POST'])
 def inserir():
-    titulo = request.form.get('titulo', None)
-    link = request.form.get('link', None)
-    descricao = request.form.get('descricao', None)
-    tags = request.form.get('tags', None).split(" ")
+    titulo = request.form.get('form_titulo', None)
+    link = request.form.get('form_link', None)
+    descricao = request.form.get('form_desc', None)
+    tags = request.form.get('form_tags', None).split(" ")
     id = len(ferramenta_list) + 1
     ferramentas = Ferramentas(id, titulo, link, descricao, tags)
-    ferramentas.append(ferramentas)
+    ferramenta_list.append(ferramentas)
     return render_template("index.html", ferramenta_list = ferramenta_list)
+
+
+@app.route("/excluir/<int:id>", methods=['GET'])
+def excluir(id: int):
+    for i in ferramenta_list:
+        if i.id == id:
+            ferramenta_list.remove(i)
+            return render_template("index.html", ferramenta_list = ferramenta_list)
+    return render_template("index.html",ferramenta_list = ferramenta_list), 404
+
+
+@app.route("/busca", methods=['GET'])
+def busca():
+    ferramentas_filtradas_list = []
+    pesquisar = request.args.get('pesquisa')
+    pesquisar_tag = request.args.get('tag', None)
+    for ferramenta in ferramenta_list:
+        if pesquisar_tag == "pesquisar-tag":
+            if pesquisar in ferramenta.get_tag():
+                ferramentas_filtradas_list.append(ferramenta)
+        elif pesquisar_tag == None:
+            if pesquisar in ferramenta.get_nome() or pesquisar in ferramenta.get_descricao():
+                ferramentas_filtradas_list.append(ferramenta)
+
+
+    return render_template("index.html", ferramenta_list = ferramentas_filtradas_list)
