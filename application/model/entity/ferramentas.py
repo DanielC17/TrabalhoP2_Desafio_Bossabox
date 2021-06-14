@@ -19,8 +19,8 @@ class Ferramentas:
         return self.__titulo
 
     @titulo.setter
-    def link(self, value):
-        self.__titulo
+    def titulo(self, value):
+        self.__titulo = value
 
     @property
     def link(self):
