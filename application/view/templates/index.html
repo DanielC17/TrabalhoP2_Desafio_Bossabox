@@ -3,15 +3,127 @@
 <head>
     <meta charset="UTF-8">
     <title>BOSSABOX</title>
+
+     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <h1>VUTTR</h1>
-    {% for i in ferramenta_list %}
-    <p> Nome: {{i.titulo}} </p>
-    <p> LINK: {{i.link}}</p>
-    <p> Descrição: {{i.descricao}}</p>
-    <p> Tags: {{i.tags}}</p>
+    <section class="corpo">
+    <div class="title">
+        <h1>VUTTR</h1>
+        <h2>Very Userful Tools Remember</h2>
 
+
+            <div id="formulario">
+
+                 <form action="{{ url_for('busca') }}" method="get" enctype="application/x-www-form-urlencoded">
+                    <label for="busca">Buscar:</label>
+                    <input type="text" name="pesquisa" id="busca">
+                    <input type="checkbox" name="tag" id="check" >
+                    <label for="check">search in tags only</label>
+                </form>
+            <div id="button">
+                <button onclick="abrirPopAdicionar()">+Add</button>
+            </div>
+        </div>
+
+    {% for i in ferramenta_list %}
+        <div id="ferramentas">
+            <div class="alinhando">
+            <a href="{{i.link}}" target="_blank">{{i.titulo}} </a>
+            <a class="botao_excluir" onclick="abrirPopRemover({{ i.id }})" href="#"><b>x</b> remover</a>
+            </div>
+        <p> Descrição: {{i.descricao}}</p>
+
+        {% for tag in i.tags %}
+            <div id="tag">
+                <p>#{{tag}}</p>
+            </div>
+        {% endfor %}
+
+
+            <div class="remove_box" id="{{ i.id }}">
+                <div class="titulo_box">
+                    <a class="botao_excluir" id="fechar_cancelar" onclick="fecharPopRemover({{ i.id }})" href="#"><b>x</b></a>
+                    <h3>Remove tool</h3>
+                </div>
+                <p>Are you sure you want to remove {{ i.titulo }}.</p>
+                <div id="botao_remover_t">
+                    <a id="cancelar" class="button_style" onclick="fecharPopRemover({{ i.id }})" href="#">Cancelar</a>
+                    <a id="botao-excluir" class="button_style" href="{{ url_for('excluir', id=i.id) }}">Yes, remove</a>
+                </div>
+            </div>
+        </div>
     {% endfor %}
+    </div>
+
+
+    <div id="form_inserir">
+        <form action="{{ url_for('inserir') }}" method='POST'>
+            <h2>Adicionar ferramenta</h2>
+
+            <div>
+                <label for="form_titulo">Titulo:</label>
+                <input type="text" name="form_titulo" id="form_titulo">
+            </div>
+            <div>
+                <label for="form_link">Link:</label>
+                <input type="url" name="form_link" id="form_link">
+            </div>
+            <div>
+                <label for="form_desc">Descrição:</label>
+                <textarea name="form_desc" id="form_desc" cols="40" rows="5"></textarea>
+            </div>
+            <div>
+                <label for="form_tags">Tags:</label>
+                <textarea name="form_tags" id="form_tags" cols="40" rows="2"></textarea>
+            </div>
+            <button type="submit">Confirmar</button>
+        </form>
+    </div>
+    </section>
+<script>
+
+function fecharPopAdicionar(){
+    pop = window.document.getElementById('form_inserir');
+    pop.style.display = 'none';
+    janela = window.document.getElementById('principal');
+    janela.style.opacity = '1.0';
+}
+
+function abrirPopAdicionar(){
+    pop = window.document.getElementById('form_inserir');
+    pop.style.display = 'block';
+    janela = window.document.getElementById('principal');
+    janela.style.opacity = '0.5';
+}
+
+function fecharPopRemover(id){
+    popRemover = window.document.getElementById(id);
+    popRemover.style.visibility = "hidden";
+
+    janela = window.document.getElementById('nome_principal');
+    janela.style.opacity = '1.0';
+    janela = window.document.getElementById('formulario-busca-tools');
+    janela.style.opacity = '1.0';
+    janela = window.document.getElementsByClassName('tools_card');
+    for (var i = 0; i < janela.length; i++) {
+        janela[i].style.opacity = '1.0';
+    }
+}
+
+function abrirPopRemover(id){
+    popRemover = window.document.getElementById(id);
+    popRemover.style.visibility = "visible";
+
+    janela = window.document.getElementById('nome_principal');
+    janela.style.opacity = '0.5';
+    janela = window.document.getElementById('formulario-busca-tools');
+    janela.style.opacity = '0.5';
+    janela = window.document.getElementsByClassName('tools_card');
+    for (var i = 0; i < janela.length; i++) {
+        janela[i].style.opacity = '0.5';
+    }
+}
+</script>
 </body>
 </html>
