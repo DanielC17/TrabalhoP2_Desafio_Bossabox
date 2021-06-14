@@ -38,13 +38,13 @@ def excluir(id: int):
 def busca():
     ferramentas_filtradas_list = []
     pesquisar = request.args.get('pesquisa')
-    pesquisar_tag = request.args.get('tag', None)
+    pesquisar_tag = request.args.get('tag')
     for ferramenta in ferramenta_list:
-        if pesquisar_tag == "pesquisar-tag":
-            if pesquisar in ferramenta.get_tag():
+        if pesquisar_tag == "on":
+            if pesquisar in ferramenta.tags:
                 ferramentas_filtradas_list.append(ferramenta)
         elif pesquisar_tag == None:
-            if pesquisar in ferramenta.get_nome() or pesquisar in ferramenta.get_descricao():
+            if pesquisar in ferramenta.titulo or pesquisar in ferramenta.descricao:
                 ferramentas_filtradas_list.append(ferramenta)
 
 
