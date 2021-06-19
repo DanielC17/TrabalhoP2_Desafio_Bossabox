@@ -30,7 +30,7 @@
         <div id="ferramentas">
             <div class="alinhando">
             <a href="{{i.link}}" target="_blank">{{i.titulo}} </a>
-            <a class="botao_excluir" onclick="abrirPopRemover({{ i.id }})" href="#"><b>x</b> remover</a>
+            <a class="botao_excluir" onclick="abrirPopRemover({{ i.id }})" href="#">remover</a>
             </div>
         <p> Descrição: {{i.descricao}}</p>
 
@@ -44,12 +44,12 @@
             <div class="remove_box" id="{{ i.id }}">
                 <div class="titulo_box">
                     <a class="botao_excluir" id="fechar_cancelar" onclick="fecharPopRemover({{ i.id }})" href="#"><b>x</b></a>
-                    <h3>Remove tool</h3>
+                    <h3>Remover tarefa</h3>
                 </div>
-                <p>Are you sure you want to remove {{ i.titulo }}.</p>
-                <div id="botao_remover_t">
+                <p>Voce deseja remover {{ i.titulo }}.</p>
+                <div id="botao_remover">
                     <a id="cancelar" class="button_style" onclick="fecharPopRemover({{ i.id }})" href="#">Cancelar</a>
-                    <a id="botao-excluir" class="button_style" href="{{ url_for('excluir', id=i.id) }}">Yes, remove</a>
+                    <a id="botao-excluir" class="button_style" href="{{ url_for('excluir', id=i.id) }}">REMOVER</a>
                 </div>
             </div>
         </div>
@@ -60,35 +60,30 @@
     <div id="form_inserir">
         <form action="{{ url_for('inserir') }}" method='POST'>
             <h2>Adicionar ferramenta</h2>
-
+            <div id="format_form">
             <div>
-                <label for="form_titulo">Titulo:</label>
+                <label> Titulo:</label>
                 <input type="text" name="form_titulo" id="form_titulo">
             </div>
             <div>
-                <label for="form_link">Link:</label>
+                <label>Link:</label>
                 <input type="url" name="form_link" id="form_link">
             </div>
             <div>
-                <label for="form_desc">Descrição:</label>
+                <label>Descrição:</label>
                 <textarea name="form_desc" id="form_desc" cols="40" rows="5"></textarea>
             </div>
             <div>
-                <label for="form_tags">Tags:</label>
+                <label>Tags:</label>
                 <textarea name="form_tags" id="form_tags" cols="40" rows="2"></textarea>
             </div>
+            <br>
             <button type="submit">Confirmar</button>
+            </div>
         </form>
     </div>
     </section>
 <script>
-
-function fecharPopAdicionar(){
-    pop = window.document.getElementById('form_inserir');
-    pop.style.display = 'none';
-    janela = window.document.getElementById('principal');
-    janela.style.opacity = '1.0';
-}
 
 function abrirPopAdicionar(){
     pop = window.document.getElementById('form_inserir');
@@ -103,7 +98,7 @@ function fecharPopRemover(id){
 
     janela = window.document.getElementById('nome_principal');
     janela.style.opacity = '1.0';
-    janela = window.document.getElementById('formulario-busca-tools');
+    janela = window.document.getElementById('form-busca-ferramenta');
     janela.style.opacity = '1.0';
     janela = window.document.getElementsByClassName('tools_card');
     for (var i = 0; i < janela.length; i++) {
@@ -117,7 +112,7 @@ function abrirPopRemover(id){
 
     janela = window.document.getElementById('nome_principal');
     janela.style.opacity = '0.5';
-    janela = window.document.getElementById('formulario-busca-tools');
+    janela = window.document.getElementById('form-busca-ferramenta');
     janela.style.opacity = '0.5';
     janela = window.document.getElementsByClassName('tools_card');
     for (var i = 0; i < janela.length; i++) {

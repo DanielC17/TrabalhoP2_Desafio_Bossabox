@@ -9,6 +9,7 @@ div#ferramentas{
 a{
     color: black;
     text-align: right;
+    gap: 50px;
 }
 
 
@@ -76,4 +77,21 @@ div#tag{
 
 div#botao_remover_t{
     gap: 70px;
+}
+
+#form_inserir{
+   justify-content: center;
+
+}
+
+button{
+    font-size: 1.2em;
+    background: #404040;
+    border: 5;
+    color: #ffffff;
+}
+
+label{
+    display: inline-flex;
+    margin-top: 10px;
 }
